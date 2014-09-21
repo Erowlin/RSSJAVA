@@ -11,6 +11,7 @@
 
 
 <link rel="stylesheet" href="res/pure/pure-min.css">
+<link rel="stylesheet" href="res/pure-extras/css/pure-extras.css">
     <!--[if lte IE 8]>
         <link rel="stylesheet" href="css/layouts/feed-old-ie.css">
     <![endif]-->
@@ -25,19 +26,23 @@
         <a href="#" class="nav-menu-button">Menu</a>
 
         <div class="nav-inner">
-            <button class="primary-button pure-button">Compose</button>
+            <button class="primary-button pure-button">Add a new feed</button>
 
             <div class="pure-menu pure-menu-open">
                 <ul>
-                    <li><a href="#">Inbox <span class="feed-count">(2)</span></a></li>
-                    <li><a href="#">Important</a></li>
-                    <li><a href="#">Sent</a></li>
-                    <li><a href="#">Drafts</a></li>
-                    <li><a href="#">Trash</a></li>
-                    <li class="pure-menu-heading">Labels</li>
+                    <li class="pure-menu-heading">Folders</li>
+                    <li><a href="#">Informatique <span class="feed-count">(2)</span></a></li>
+                    <li><a href="#">Boulard</a></li>
+                    <li><a href="#">La Denise</a></li>
+                    <li><a href="#">Others</a></li>
+                    <li><a href="#">All</a></li>
+                    <!-- <li class="pure-menu-heading">Labels</li>
                     <li><a href="#"><span class="feed-label-personal"></span>Personal</a></li>
                     <li><a href="#"><span class="feed-label-work"></span>Work</a></li>
-                    <li><a href="#"><span class="feed-label-travel"></span>Travel</a></li>
+                    <li><a href="#"><span class="feed-label-travel"></span>Travel</a></li> -->
+                    <li class="pure-menu-heading">Account</li>
+                    <li><a href="#" title="Manage account">Manage</a></li>
+                    <li><a href="#" title="Bye bye !">Log Out</a></li>
                 </ul>
             </div>
         </div>
@@ -50,7 +55,8 @@
             </div>
 
             <div class="pure-u-3-4">
-                <h4 class="feed-name">Korben</h4> <h4 class="feed-item-unread-count">6</h>
+                <span class="feed-item-unread-count pure-badge-info">6</span>
+                <h5 class="feed-name">Korben</h5> 
             </div>
             
         </div>
@@ -61,6 +67,7 @@
             </div>
 
             <div class="pure-u-3-4">
+                <span class="feed-item-unread-count pure-badge-info">2</span>
                 <h5 class="feed-name">Eric Ferraiuolo</h5>
                 </p>
             </div>
@@ -72,17 +79,19 @@
             </div>
 
             <div class="pure-u-3-4">
-                <h5 class="feed-name">YUI Library</h5>
+                <span class="feed-item-unread-count pure-badge-info">1527</span>
+                <h5 class="feed-name">Le monde</h5>
             </div>
         </div>
 
-        <div class="feed-item pure-g">
+        <div class="feed-item feed-item-unread pure-g">
             <div class="pure-u">
                 <img class="feed-avatar" alt="Reid Burke&#x27;s avatar" height="64" width="64" src="res/custom/img/reid-avatar.png">
             </div>
 
             <div class="pure-u-3-4">
-                <h5 class="feed-name">Reid Burke</h5>
+                <span class="feed-item-unread-count pure-badge-info">11</span>
+                <h5 class="feed-name">Clubic</h5>
             </div>
         </div>
 
@@ -124,14 +133,14 @@
                 <div class="pure-u-1-2">
                     <h1 class="feed-content-title">Hello from Toronto</h1>
                     <p class="feed-content-subtitle">
-                        From <a>Tilo Mitra</a> at <span>3:56pm, April 3, 2012</span>
+                        <a>Posted at 3:56pm, April 3, 2012</a></span>
                     </p>
                 </div>
 
                 <div class="feed-content-controls pure-u-1-2">
-                    <button class="secondary-button pure-button">Reply</button>
-                    <button class="secondary-button pure-button">Forward</button>
-                    <button class="secondary-button pure-button">Move to</button>
+                    <button class="secondary-button pure-button">Star</button>
+                    <button class="secondary-button pure-button">Mark as unread</button>
+                    <button class="secondary-button pure-button">Share</button>
                 </div>
             </div>
 

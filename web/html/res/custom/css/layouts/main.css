@@ -102,7 +102,6 @@ a {
         color: rgb(75, 113, 151);
     }
 
-
 /*
  * -- feed STYLES --
  * Styles relevant to the feed messages, labels, counts, and more.
@@ -114,7 +113,7 @@ a {
 .feed-label-personal,
 .feed-label-work,
 .feed-label-travel {
-    width: 15px;
+    width: 3px;
     height: 15px;
     display: inline-block;
     margin-right: 0.5em;
@@ -148,6 +147,7 @@ a {
 
 .feed-item-unread-count {
     display: inline;
+    float: right !important;
 }
     
 

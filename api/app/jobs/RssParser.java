@@ -30,4 +30,12 @@ public class RssParser {
     public String getTitle() {
         return (channel.getChild("title").getText());
     }
+
+    public String getDescription() {
+        return (channel.getChild("description").getText());
+    }
+
+    public String getLink() {
+        return (channel.getChild("link").getText());
+    }
 }

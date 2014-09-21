@@ -18,5 +18,6 @@ resolvers += "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositor
 libraryDependencies ++= Seq(
   "mysql" % "mysql-connector-java" % "5.1.18",
   "com.ning" % "async-http-client" % "1.6.4",
-  "org.jdom" % "jdom" % "2.0.2"
+  "org.jdom" % "jdom" % "2.0.2",
+  "org.mindrot" % "jbcrypt" % "0.3m"
 )

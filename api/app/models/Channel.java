@@ -22,19 +22,30 @@ public class Channel extends Model {
     @Constraints.Required
     public String description;
 
-    public String language;
-    public String copyright;
-    public String managingEditor;
-    public String webMaster;
+    @OneToMany(cascade=CascadeType.REMOVE)
+    public List<Item> items;
 
-    @Formats.DateTime(pattern="dd/MM/YY")
-    public Date pubDate;
+    @ManyToOne(cascade=CascadeType.ALL)
+    public User user;
 
-    @Formats.DateTime(pattern="dd/MM/YY")
-    public Date lastBuildDate;
+    public Channel(String title, String link, String description, User user) {
+        this.user = user;
+    }
 
-    @OneToMany(cascade=CascadeType.ALL)
-    public List<ChannelCategory> category;
+
+//    public String language;
+//    public String copyright;
+//    public String managingEditor;
+//    public String webMaster;
+//
+//    @Formats.DateTime(pattern="dd/MM/YY")
+//    public Date pubDate;
+
+//    @Formats.DateTime(pattern="dd/MM/YY")
+//    public Date lastBuildDate;
+
+//    @OneToMany(cascade=CascadeType.ALL)
+//    public List<ChannelCategory> category;
 
 //    public String generator;
 //    public String docs;

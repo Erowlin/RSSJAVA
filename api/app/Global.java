@@ -14,14 +14,14 @@ import jobs.Fetch;
 public class Global extends GlobalSettings {
     @Override
     public void onStart(Application app) {
-        FiniteDuration delay = FiniteDuration.create(0, TimeUnit.SECONDS);
-        FiniteDuration frequency = FiniteDuration.create(60, TimeUnit.SECONDS);
-        Akka.system().scheduler().schedule(delay, frequency, new Runnable() {
-            @Override
-            public void run() {
-                Fetch.run();
-            }
-        }, Akka.system().dispatcher());
+//        FiniteDuration delay = FiniteDuration.create(0, TimeUnit.SECONDS);
+//        FiniteDuration frequency = FiniteDuration.create(60, TimeUnit.SECONDS);
+//        Akka.system().scheduler().schedule(delay, frequency, new Runnable() {
+//            @Override
+//            public void run() {
+//                Fetch.run();
+//            }
+//        }, Akka.system().dispatcher());
     }
 
 }

@@ -8,7 +8,7 @@ create table channel (
   title                     varchar(255),
   link                      varchar(255),
   description               varchar(255),
-  user_id                   bigint,
+  user_id                   varchar(255),
   constraint pk_channel primary key (id))
 ;
 
@@ -26,7 +26,9 @@ create table item (
 ;
 
 create table user (
-  id                        bigint not null,
+  id                        varchar(255) not null,
+  user_id                   varchar(255),
+  provider_id               varchar(255),
   email                     varchar(255),
   password                  varchar(255),
   constraint uq_user_email unique (email),

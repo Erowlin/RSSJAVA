@@ -14,7 +14,7 @@ public class Users extends Controller {
     public static Result create() {
         Form<User> userForm = Form.form(User.class);
         User user = userForm.bindFromRequest().get();
-        user.hashPassword();
+//        user.hashPassword();
         return ok(Json.toJson(user));
     }
 

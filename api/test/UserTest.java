@@ -1,4 +1,3 @@
-import models.Channel;
 import models.User;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -72,5 +71,22 @@ public class UserTest {
         assertThat(user2).isNull();
         assertThat(status(result)).isEqualTo(OK);
         assertThat(contentAsString(result)).isEmpty();
+    }
+
+    public void addChanelToUser() {
+        User user = new User();
+        user.email = "test2@rss.org";
+        user.password = "coucou42";
+        user.hashPassword();
+        user.save();
+
+        Map<String, String> params = new HashMap();
+        params.put("email", "test@rss.org");
+        params.put("password", "coucou42");
+        Result result = callAction(
+                controllers.routes.ref.Users.create(),
+                new FakeRequest(POST, "/users/create").withFormUrlEncodedBody(params)
+        );
+
     }
 }

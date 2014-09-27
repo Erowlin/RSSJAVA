@@ -34,7 +34,7 @@ a {
     background: #fff;
     border: 1px solid #ddd;
     color: #666;
-    padding: 0.5em 2em;
+    padding: 0.5em 1em;
     font-size: 80%;
 }
 
@@ -158,16 +158,26 @@ a {
     border-left: 6px solid #1b98f8;
 }
 
+
+.feed-content{
+}
+
+.feed-content-body {
+
+}
+
 /* feed Content Styles */
 .feed-content-header, .feed-content-body, .feed-content-footer {
-    padding: 1em 2em;
+    padding: 0.3em 1em;
 }
     .feed-content-header {
         border-bottom: 1px solid #ddd;
+
     }
 
         .feed-content-title {
             margin: 0.5em 0 0;
+            color: black;
         }
         .feed-content-subtitle {
             font-size: 1em;
@@ -181,14 +191,16 @@ a {
         margin-top: 2em;
         text-align: right;
     }
-        .feed-content-controls .secondary-button {
-            margin-bottom: 0.3em;
-        }
 
     .feed-avatar {
         width: 40px;
         height: 40px;
     }
+
+.feed-content-title>a {
+            margin: 0.5em 0 0;
+            color: black;
+        }
 
 
 /*
@@ -267,6 +279,7 @@ a {
         position: static;
         margin: 0;
         padding: 0;
+        width: 100%;
     }
 }
 

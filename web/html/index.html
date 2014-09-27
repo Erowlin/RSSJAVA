@@ -127,14 +127,14 @@
         <div class="feed-content">
             <div class="feed-content-header pure-g">
                 <div class="pure-u-1-2">
-                    <h2 class="feed-content-title" feed-item-id="f_123"><a href="#"> Hello from Toronto </a></h2>
+                    <h2 class="feed-content-title" feed-item-id="f_123" id="toronto"><a href="#"> Hello from Toronto </a></h2>
                     <p class="feed-content-subtitle">
                         <a href="#">Posted at 3:56pm, April 3, 2012</a>
                     </p>
                 </div>
             </div>
 
-            <div feed-item-id-hide="f_123" class="feed-content-body" idToHide="f_123">
+            <div feed-item-id-hide="f_123" class="feed-content-body" idToHide="f_123" id="content_toronto">
                 <button class="secondary-button pure-button">Star</button>
                 <button class="secondary-button pure-button">Mark as unread</button>
                 <button class="secondary-button pure-button">Share</button>
@@ -148,10 +148,11 @@
 </div>
 
 <script src="res/pure/yui-min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="res/custom/js/index.js"></script>
 
 <script>
-    YUI().use('node-base', 'node-event-delegate', function (Y) {
+   /*YUI().use('node-base', 'node-event-delegate', function (Y) {
 
         var menuButton = Y.one('.nav-menu-button'),
             nav        = Y.one('#nav');
@@ -163,7 +164,7 @@
 
         // Your application code goes here...
 
-    });
+    });*/
 </script>
 
 

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A layout example that shows off a responsive feed layout.">
+
+    <title>feed &ndash; </title>
+
+    
+
+
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/layouts/feed-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="res/custom/css/layouts/main.css">
+    <!--<![endif]-->
+</head>
+<body>
+
+<div id="layout" class="content pure-g">
+    <div id="nav" class="pure-u">
+        <a href="#" class="nav-menu-button">Menu</a>
+
+        <div class="nav-inner">
+            <button class="primary-button pure-button">Add a new feed</button>
+
+            <div class="pure-menu pure-menu-open">
+                <ul>
+                    <li class="pure-menu-heading">Folders</li>
+                    <li><a href="#">Informatique <span class="feed-count">(2)</span></a></li>
+                    <li><a href="#">Boulard</a></li>
+                    <li><a href="#">La Denise</a></li>
+                    <li><a href="#">Others</a></li>
+                    <li><a href="#">All</a></li>
+                    <li class="pure-menu-heading">Account</li>
+                    <li><a href="#" title="Manage account">Manage</a></li>
+                    <li><a href="#" title="Bye bye !">Log Out</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="list" class="pure-u-1">
+        <div class="feed-item pure-g" ng-repeat="site in sites" id="{{ 's_' + site.id }}" ng-class="{'feed-item-unread': site.unread > 0}" ng-click="getEntries(site.id)">
+            <div class="pure-u">
+                <img class="feed-avatar" alt="{{ site.name }}" height="64" width="64" src="">
+            </div>
+
+            <div class="pure-u-3-4">
+                <span class="feed-item-unread-count pure-badge-info">{{ site.unread }}</span>
+                <h5 class="feed-name">{{ site.name }}</h5> 
+            </div>
+            
+        </div>
+    </div>
+
+    <div id="main" class="pure-u-1">
+        <div class="feed-content feed-item-unread" ng-repeat="entry in entries">
+            <div class="feed-content-header pure-g">
+                <div class="pure-u-1-2">
+                    <h2 class="feed-content-title" ng-click="slideContent(entry.id)"> {{ entry.title }} </h2>
+                    <p class="feed-content-subtitle">
+                        <a href="#">Posted at {{ entry.date }}</a>
+                    </p>
+                </div>
+            </div>
+
+            <div id="{{ 'e_' + entry.id }}" class="feed-content-body" style="display: none;">
+                <button class="secondary-button pure-button">Star</button>
+                <button class="secondary-button pure-button">Mark as unread</button>
+                <button class="secondary-button pure-button">Share</button>
+                <p ng-bind-html="loadHtml(entry.description)"></p> 
+                
+            </div>
+
+        </div>
+
+    </div>
+</div>
+

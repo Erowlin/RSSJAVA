@@ -6,11 +6,7 @@
 <meta name="description" content="A layout example that shows off a responsive feed layout.">
 
     <title>feed &ndash; </title>
-
-    
-
-
-<link rel="stylesheet" href="res/pure/pure-min.css">
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
 <link rel="stylesheet" href="res/pure-extras/css/pure-extras.css">
     <!--[if lte IE 8]>
         <link rel="stylesheet" href="css/layouts/feed-old-ie.css">
@@ -36,10 +32,6 @@
                     <li><a href="#">La Denise</a></li>
                     <li><a href="#">Others</a></li>
                     <li><a href="#">All</a></li>
-                    <!-- <li class="pure-menu-heading">Labels</li>
-                    <li><a href="#"><span class="feed-label-personal"></span>Personal</a></li>
-                    <li><a href="#"><span class="feed-label-work"></span>Work</a></li>
-                    <li><a href="#"><span class="feed-label-travel"></span>Travel</a></li> -->
                     <li class="pure-menu-heading">Account</li>
                     <li><a href="#" title="Manage account">Manage</a></li>
                     <li><a href="#" title="Bye bye !">Log Out</a></li>
@@ -69,7 +61,7 @@
             <div class="pure-u-3-4">
                 <span class="feed-item-unread-count pure-badge-info">2</span>
                 <h5 class="feed-name">Eric Ferraiuolo</h5>
-                </p>
+                
             </div>
         </div>
 
@@ -131,62 +123,29 @@
         <div class="feed-content">
             <div class="feed-content-header pure-g">
                 <div class="pure-u-1-2">
-                    <h1 class="feed-content-title">Hello from Toronto</h1>
+                    <h2 class="feed-content-title" feed-item-id="f_123" id="toronto"><a href="#"> Hello from Toronto </a></h2>
                     <p class="feed-content-subtitle">
-                        <a>Posted at 3:56pm, April 3, 2012</a></span>
+                        <a href="#">Posted at 3:56pm, April 3, 2012</a>
                     </p>
                 </div>
-
-                <div class="feed-content-controls pure-u-1-2">
-                    <button class="secondary-button pure-button">Star</button>
-                    <button class="secondary-button pure-button">Mark as unread</button>
-                    <button class="secondary-button pure-button">Share</button>
-                </div>
             </div>
 
-            <div class="feed-content-body">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
-                <p>
-                    Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <p>
-                    Aliquam ac feugiat dolor. Proin mattis massa sit amet enim iaculis tincidunt. Mauris tempor mi vitae sem aliquet pharetra. Fusce in dui purus, nec malesuada mauris. Curabitur ornare arcu quis mi blandit laoreet. Vivamus imperdiet fermentum mauris, ac posuere urna tempor at. Duis pellentesque justo ac sapien aliquet egestas. Morbi enim mi, porta eget ullamcorper at, pharetra id lorem.
-                </p>
-                <p>
-                    Donec sagittis dolor ut quam pharetra pretium varius in nibh. Suspendisse potenti. Donec imperdiet, velit vel adipiscing bibendum, leo eros tristique augue, eu rutrum lacus sapien vel quam. Nam orci arcu, luctus quis vestibulum ut, ullamcorper ut enim. Morbi semper erat quis orci aliquet condimentum. Nam interdum mauris sed massa dignissim rhoncus.
-                </p>
-                <p>
-                    Regards,<br>
-                    Tilo
-                </p>
+            <div feed-item-id-hide="f_123" class="feed-content-body" idToHide="f_123" id="content_toronto">
+                <button class="secondary-button pure-button">Star</button>
+                <button class="secondary-button pure-button">Mark as unread</button>
+                <button class="secondary-button pure-button">Share</button>
+                <p> Hello World </p> 
+                This is a sample
             </div>
+
         </div>
+
     </div>
 </div>
 
 <script src="res/pure/yui-min.js"></script>
-
-<script>
-    YUI().use('node-base', 'node-event-delegate', function (Y) {
-
-        var menuButton = Y.one('.nav-menu-button'),
-            nav        = Y.one('#nav');
-
-        // Setting the active class name expands the menu vertically on small screens.
-        menuButton.on('click', function (e) {
-            nav.toggleClass('active');
-        });
-
-        // Your application code goes here...
-
-    });
-</script>
-
-
-
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="res/custom/js/index.js"></script>
 
 
 </body>

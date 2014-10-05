@@ -5,6 +5,7 @@ import com.feth.play.module.pa.user.AuthUser;
 import com.feth.play.module.pa.user.AuthUserIdentity;
 import models.User;
 import play.Application;
+import play.Logger;
 
 /**
  * Created by julien on 9/22/14.
@@ -17,7 +18,7 @@ public class MyUserServicePlugin extends UserServicePlugin {
 
     @Override
     public Object save(final AuthUser authUser) {
-        final boolean isLinked = User.existsByAuthUserIdentity(authUser);
+        final Boolean isLinked = User.existsByAuthUserIdentity(authUser);
         if (!isLinked) {
             return User.create(authUser).id;
         } else {

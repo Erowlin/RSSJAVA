@@ -6,6 +6,7 @@ import javax.persistence.*;
 import com.feth.play.module.pa.user.AuthUser;
 import com.feth.play.module.pa.user.AuthUserIdentity;
 import org.mindrot.jbcrypt.BCrypt;
+import play.Logger;
 import play.db.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
@@ -48,11 +49,12 @@ public class User extends Model {
 
     public static boolean existsByAuthUserIdentity(AuthUser authUser) {
         List<User> lu = find.where()
-                .ilike("user_id", "%" + authUser.getId() +"%")
+                .eq("id", authUser.getId())
                 .findPagingList(25)
                 .setFetchAhead(false)
                 .getAsList();
-        if (lu.size() >= 0) {
+        if (lu.size() > 0) {
+            Logger.debug(lu.get(0).toString());
             return true;
         } else {
             return false;
@@ -60,20 +62,24 @@ public class User extends Model {
     }
 
     public static User findByAuthUserIdentity(AuthUserIdentity identity) {
+        if (identity == null) {
+            return (null);
+        }
         List<User> lu = find.where()
-                .ilike("user_id", "%" + identity.getId() +"%")
+                .eq("id", identity.getId())
                 .findPagingList(25)
                 .setFetchAhead(false)
                 .getAsList();
+        if (lu.size() == 0) {
+            return (null);
+        }
         return lu.get(0);
     }
 
     public static void merge(AuthUser newUser, AuthUser oldUser) {
-
     }
 
     public static void addLinkedAccount(final AuthUser oldUser, final AuthUser newUser) {
-
     }
 
     public static Finder<Long,User> find = new Finder<Long,User>(

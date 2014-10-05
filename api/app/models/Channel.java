@@ -4,6 +4,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import jobs.RssParser;
+import play.Logger;
 import play.data.format.*;
 import play.data.validation.*;
 import play.db.ebean.Model;
@@ -23,7 +24,7 @@ public class Channel extends Model {
 //    @Constraints.Required
     public String description;
 
-    @OneToMany(cascade=CascadeType.REMOVE)
+    @OneToMany(cascade=CascadeType.ALL)
     public List<Item> items;
 
     @ManyToOne(cascade=CascadeType.ALL)
@@ -37,6 +38,10 @@ public class Channel extends Model {
         this.title = rss.getTitle();
         this.description = rss.getDescription();
         this.link = rss.getLink();
+
+        this.items = rss.getItems();
+        Logger.debug("Number of items saved: " + items.size());
+
         this.save();
     }
 

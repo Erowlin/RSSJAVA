@@ -8,7 +8,7 @@ GET     /                           controllers.Application.index()
 
 GET     /channels                   controllers.Channels.all()
 POST    /channels/new               controllers.Channels.create()
-DELETE  /channels/:id/delete        controllers.Channels.delete(id: Long)
+GET     /channels/:id/delete        controllers.Channels.delete(id: Long)
 
 #GET     /users                      controllers.Users.all()
 #POST    /users/new                  controllers.Users.create()

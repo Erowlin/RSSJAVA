@@ -1,6 +1,9 @@
 package controllers;
 
+import com.feth.play.module.pa.PlayAuthenticate;
+import com.feth.play.module.pa.user.AuthUser;
 import jobs.Fetch;
+import models.User;
 import play.Logger;
 import play.libs.Json;
 import play.data.Form;
@@ -9,6 +12,7 @@ import play.mvc.*;
 import models.Channel;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -33,8 +37,23 @@ public class Channels extends Controller {
 
 
     public static Result mainView() {
-        List<Channel> users = Channel.find.fetch("items").findList();
+
+
+        final AuthUser currentAuthUser = PlayAuthenticate.getUser(session());
+        final User localUser = User.findByAuthUserIdentity(currentAuthUser);
+
+        if (localUser == null) {
+            return ok(Json.toJson("Error"));
+        }
+
+        List<Channel> channels = Channel.find.fetch("items").findList();
+
+        Iterator<Channel> chan_it = channels.iterator();
+        while (chan_it.hasNext()) {
+            Logger.debug("Number of items taken: " + chan_it.next().items.size());
+        }
+
         Form<Channel> myForm = Form.form(Channel.class);
-        return ok(views.html.index.render(users, myForm));
+        return ok(views.html.index.render(channels, myForm));
     }
 }

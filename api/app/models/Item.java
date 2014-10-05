@@ -25,8 +25,8 @@ public class Item extends Model {
     @Constraints.Required
     public String description;
 
-    @ManyToOne(cascade=CascadeType.ALL)
-    public Channel channel;
+//    @ManyToOne(cascade=CascadeType.ALL)
+//    public Channel channel;
 
 //    public String author;
 //    public String category;

@@ -13,13 +13,17 @@
             </tr>
         </thead>
         <tbody>
-            @for(c <- channels) {
+            @for(channel <- channels) {
             <tr>
-                <td>@c.id</td>
-                <td>@c.title</td>
-                <td>@c.link</td>
-                <td>@c.description</td>
-                <td>@c.items</td>
+                <td>@channel.id</td>
+                <td>@channel.title</td>
+                <td>@channel.link</td>
+                <td>@channel.description</td>
+                <td><ul>
+                    @for(item <- channel.items) {
+                        <li>@item.title</li>
+                    }
+                </ul></td>
                 <td><button>Delete</button></td>
             </tr>
             }

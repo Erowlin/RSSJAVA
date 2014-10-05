@@ -1,6 +1,7 @@
 package jobs;
 
 import com.ning.http.client.*;
+import models.Channel;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -36,6 +37,17 @@ public class Fetch {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void runOne(Channel chan) {
+        Future<RssParser> future = getRssParser(chan.link);
+        try {
+            RssParser rss = future.get();
+            chan.updateInfos(rss);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void run() {

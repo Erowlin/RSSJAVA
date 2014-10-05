@@ -3,6 +3,7 @@
 # ~~~~
 
 # Home page
+GET     /                           controllers.Channels.mainView()
 GET     /                           controllers.Application.index()
 
 GET     /channels                   controllers.Channels.all()

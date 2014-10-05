@@ -1,5 +1,32 @@
-@(message: String)
+@(channels: List[Channel], myForm: Form[Channel])
 
 @main("Welcome to Play") {
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Title</th>
+                <th>Link</th>
+                <th>Description</th>
+                <th>Items</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(c <- channels) {
+            <tr>
+                <td>@c.id</td>
+                <td>@c.title</td>
+                <td>@c.link</td>
+                <td>@c.description</td>
+                <td>@c.items</td>
+                <td><button>Delete</button></td>
+            </tr>
+            }
+        </tbody>
+    </table>
 
+    @helper.form(action = routes.Channels.create()) {
+        @helper.inputText(myForm("link"))
+    }
 }

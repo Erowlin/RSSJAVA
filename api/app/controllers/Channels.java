@@ -39,12 +39,12 @@ public class Channels extends Controller {
     public static Result mainView() {
 
 
-        final AuthUser currentAuthUser = PlayAuthenticate.getUser(session());
-        final User localUser = User.findByAuthUserIdentity(currentAuthUser);
-
-        if (localUser == null) {
-            return ok(Json.toJson("Please login."));
-        }
+//        final AuthUser currentAuthUser = PlayAuthenticate.getUser(session());
+//        final User localUser = User.findByAuthUserIdentity(currentAuthUser);
+//
+//        if (localUser == null) {
+//            return ok(Json.toJson("Please login."));
+//        }
 
         List<Channel> channels = Channel.find.fetch("items").findList();
 

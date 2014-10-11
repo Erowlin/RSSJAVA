@@ -1,18 +1,19 @@
 import models.Channel;
-import org.junit.*;
-
-import play.mvc.*;
-import play.test.*;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import play.mvc.Result;
+import play.test.FakeApplication;
+import play.test.FakeRequest;
+import play.test.Helpers;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.*;
-import static org.fest.assertions.Assertions.*;
 
-import controllers.Channels;
-
-public class ChannelTest {
+public class ItemTest {
     public static FakeApplication app;
 
     @BeforeClass
@@ -26,7 +27,7 @@ public class ChannelTest {
         Helpers.stop(app);
     }
 
-    @Test
+//    @Test
     public void testCreate() {
         Map<String, String> params = new HashMap();
         params.put("title", "All Things v9");
@@ -42,9 +43,9 @@ public class ChannelTest {
         assertThat(contentAsString(result)).contains("Anthony");
     }
 
-    @Test
+//    @Test
     public void testAll() {
-        models.Channel channel = new models.Channel();
+        Channel channel = new Channel();
         channel.title = "All Things v9";
         channel.link = "http://anthonyeden.com/rss.xml";
         channel.description = "Words from Anthony Eden, Founder of DNSimple";
@@ -59,22 +60,22 @@ public class ChannelTest {
         assertThat(contentAsString(result)).contains("Anthony");
     }
 
-    @Test
+//    @Test
     public void testDelete() {
-        models.Channel channel = Channel.find.all().get(0);
+        Channel channel = Channel.find.all().get(0);
         Result result = callAction(
                 controllers.routes.ref.Channels.delete(channel.id),
                 new FakeRequest(GET, "/channels/1/delete")
         );
-        models.Channel channel2 = Channel.find.byId(channel.id);
+        Channel channel2 = Channel.find.byId(channel.id);
         assertThat(channel2).isNull();
         assertThat(status(result)).isEqualTo(OK);
         assertThat(contentAsString(result)).isEmpty();
     }
 
-    @Test
+//    @Test
     public void testGet() {
-        models.Channel channel = Channel.find.all().get(0);
+        Channel channel = Channel.find.all().get(0);
         Result result = callAction(
                 controllers.routes.ref.Channels.get(channel.id),
                 new FakeRequest(GET, "/channels/1")

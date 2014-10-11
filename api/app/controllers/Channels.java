@@ -19,8 +19,8 @@ import java.util.Map;
 public class Channels extends Controller {
 
     public static Result all() {
-        List<Channel> users = Channel.find.all();
-        return ok(Json.toJson(users));
+        List<Channel> channels = Channel.find.all();
+        return ok(Json.toJson(channels));
     }
 
     public static Result create() {
@@ -35,6 +35,10 @@ public class Channels extends Controller {
         return ok();
     }
 
+    public static Result get(Long id) {
+        Channel channel = Channel.find.byId(id);
+        return ok(Json.toJson(channel));
+    }
 
     public static Result mainView() {
 

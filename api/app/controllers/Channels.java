@@ -43,7 +43,7 @@ public class Channels extends Controller {
         final User localUser = User.findByAuthUserIdentity(currentAuthUser);
 
         if (localUser == null) {
-            return ok(Json.toJson("Error"));
+            return ok(Json.toJson("Please login."));
         }
 
         List<Channel> channels = Channel.find.fetch("items").findList();

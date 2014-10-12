@@ -18,6 +18,7 @@ public class Items extends Controller {
     }
 
     public static Result get(Long channel_id, Long item_id) {
-        return ok();
+        Item item = Item.find.byId(item_id);
+        return ok(Json.toJson(item));
     }
 }

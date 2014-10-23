@@ -44,7 +44,8 @@ angular.module('myApp.view_main', ['ngRoute'])
         $scope.sites = data.sites;
         console.log($scope.sites);
     }).error(function(data, error) {
-        alert('[' + data + ']');
+        console.log('Error get channels');
+        //alert('[' + data + ']');
     });
 
     $scope.getEntries = function(id) {
@@ -75,10 +76,38 @@ angular.module('myApp.view_main', ['ngRoute'])
         return $sce.trustAsHtml(html);
     }
 
+
+
+    // Custom DOM JS 
+
+    $("#add-new-channel-button").click(function(){
+        console.log('Validation');
+        
+        $scope.createChannel = function(channel) {
+            $http({
+                url: 'http://127.0.0.1:9000/channels/new',
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    'link': 'http://tamere.com'
+                },
+                withCredentials: true,
+                headers: {
+                }
+            }).success(function(data, status, headers, config) {
+                $scope.entries = data.entries; 
+                console.log('NOUVEAU CHANNEL SUCCESS');
+            }).error(function(e){
+                console.log("error !");
+            });
+
+        };
+    });
+
 }]);
 
-function feedController($scope, $http) {
 
+function feedController($scope, $http) {
 
     // Defining example datas
     /* $scope.list = {

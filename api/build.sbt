@@ -33,11 +33,14 @@ libraryDependencies ++= Seq(
   "com.ning" % "async-http-client" % "1.6.4",
   "org.jdom" % "jdom" % "2.0.2",
   "org.mindrot" % "jbcrypt" % "0.3m",
-  "com.feth" %% "play-authenticate" % "0.6.5-SNAPSHOT"
+  "com.feth" %% "play-authenticate" % "0.6.5-SNAPSHOT",
+  "org.webjars" % "angularjs" % "1.2.26",
+  "org.webjars" % "requirejs" % "2.1.11-1"
 )
 
 //  Uncomment the next line for local development of the Play Authenticate core:
 //lazy val playAuthenticate = project.in(file("modules/play-authenticate")).enablePlugins(PlayJava)
+
 
 //  Uncomment the next lines for local development of the Play Authenticate core:
 //.dependsOn(playAuthenticate)

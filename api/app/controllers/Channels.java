@@ -50,14 +50,14 @@ public class Channels extends Controller {
 //            return ok(Json.toJson("Please login."));
 //        }
 
-        List<Channel> channels = Channel.find.fetch("items").findList();
+        // List<Channel> channels = Channel.find.fetch("items").findList();
 
-        Iterator<Channel> chan_it = channels.iterator();
-        while (chan_it.hasNext()) {
-            Logger.debug("Number of items taken: " + chan_it.next().items.size());
-        }
+        // Iterator<Channel> chan_it = channels.iterator();
+        // while (chan_it.hasNext()) {
+        //     Logger.debug("Number of items taken: " + chan_it.next().items.size());
+        // }
 
-        Form<Channel> myForm = Form.form(Channel.class);
-        return ok(views.html.index.render(channels, myForm));
+        // Form<Channel> myForm = Form.form(Channel.class);
+        return ok();
     }
 }

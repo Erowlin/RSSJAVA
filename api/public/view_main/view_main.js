@@ -97,6 +97,7 @@ angular.module('myApp.view_main', ['ngRoute'])
             console.log($scope.sites);
         }).error(function(data, error) {
             console.log('Error get channels');
+            console.log(data);
         //alert('[' + data + ']');
     });
     });
@@ -109,12 +110,9 @@ angular.module('myApp.view_main', ['ngRoute'])
                 method: 'POST',
                 dataType: 'json',
                 data: {
-                    'link': 'http://www.lemonde.fr/rss/une.xml',
-                    'title': 'Le Monde'
+                    'link': 'http://www.lemonde.fr/afrique/rss_full.xml',
+                    'title': 'Le Monde - Afrique'
                 },
-                withCredentials: true,
-                headers: {
-                }
             }).success(function(data, status, headers, config) {
                 $scope.entries = data.entries;
                 console.log(data);

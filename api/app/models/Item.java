@@ -23,6 +23,7 @@ public class Item extends Model {
     public String link;
 
     @Constraints.Required
+    @Column(columnDefinition = "TEXT")
     public String description;
 
 //    @ManyToOne(cascade=CascadeType.ALL)

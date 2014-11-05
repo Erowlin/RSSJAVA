@@ -22,6 +22,7 @@ public class Channel extends Model {
     public String link;
 
 //    @Constraints.Required
+    @Column(columnDefinition = "TEXT")
     public String description;
 
     @OneToMany(cascade=CascadeType.ALL)

@@ -9,7 +9,7 @@ angular.module('myApp.view_main', ['ngRoute'])
             controller: 'View_mainCtrl'
         });
     }
-])
+    ])
 
 .controller('View_mainCtrl', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
 
@@ -35,7 +35,7 @@ angular.module('myApp.view_main', ['ngRoute'])
         dataType: 'json',
         data: '',
         headers: {
-                'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
         }
     }).success(function(data, status, headers, config) {
         console.log('Success');
@@ -80,6 +80,27 @@ angular.module('myApp.view_main', ['ngRoute'])
 
     // Custom DOM JS 
 
+    $("#actualise-channels").click(function(){
+        $http({
+            url: '/channels',
+            method: 'GET',
+            dataType: 'json',
+            data: '',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).success(function(data, status, headers, config) {
+            console.log('Success');
+            console.log(data);
+            console.log(status);
+            $scope.sites = data.sites;
+            console.log($scope.sites);
+        }).error(function(data, error) {
+            console.log('Error get channels');
+        //alert('[' + data + ']');
+    });
+    });
+
     $("#add-new-channel-button").click(function(){
         console.log('Validation');
         $scope.createChannel = function(channel) {
@@ -88,7 +109,8 @@ angular.module('myApp.view_main', ['ngRoute'])
                 method: 'POST',
                 dataType: 'json',
                 data: {
-                    'link': 'http://www.lemonde.fr/rss/une.xml'
+                    'link': 'http://www.lemonde.fr/rss/une.xml',
+                    'title': 'Le Monde'
                 },
                 withCredentials: true,
                 headers: {

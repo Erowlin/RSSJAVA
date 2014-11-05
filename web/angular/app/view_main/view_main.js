@@ -30,14 +30,12 @@ angular.module('myApp.view_main', ['ngRoute'])
 
     console.log('Getting sites list ...');
     $http({
-        url: 'http://jsonstub.com/tamere',
+        url: 'http://server.com:9000/channels',
         method: 'GET',
         dataType: 'json',
         data: '',
         headers: {
-            'Content-Type': 'application/json',
-            'JsonStub-User-Key': '7a965af9-41b7-4f6b-a505-140d36c465d5',
-            'JsonStub-Project-Key': '226d6d25-f070-4b3b-8b81-ae52834528a4'
+                'Content-Type': 'application/json',
         }
     }).success(function(data, status, headers, config) {
         console.log('Success');

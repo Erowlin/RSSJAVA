@@ -22,6 +22,7 @@ create table item (
   title                     varchar(255),
   link                      varchar(255),
   description               TEXT,
+  read                      boolean default false,
   constraint pk_item primary key (id))
 ;
 

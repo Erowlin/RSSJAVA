@@ -14,6 +14,7 @@ angular.module('myApp.view_main', ['ngRoute'])
 .controller('View_mainCtrl', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
 
     console.log("Entering view main controller..");
+    actualiseChannels();
 
     $('.nav-menu-button').click(function(e) {
         e.preventDefault();
@@ -28,48 +29,26 @@ angular.module('myApp.view_main', ['ngRoute'])
 
     });
 
-    console.log('Getting sites list ...');
-    $http({
-        url: '/channels',
-        method: 'GET',
-        dataType: 'json',
-        data: '',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    }).success(function(data, status, headers, config) {
-        console.log('Success');
-        console.log(data);
-        console.log(status);
-        $scope.sites = data.sites;
-        console.log($scope.sites);
-    }).error(function(data, error) {
-        console.log('Error get channels');
-        //alert('[' + data + ']');
-    });
-
-    $scope.getEntries = function(id) {
-        console.log('Getting entries of site ' + id + '...');
-        $http({
-            url: 'http://jsonstub.com/sites/' + id + '/entries',
-            method: 'GET',
-            dataType: 'json',
-            data: '',
-            headers: {
-                'Content-Type': 'application/json',
-                'JsonStub-User-Key': '7a965af9-41b7-4f6b-a505-140d36c465d5',
-                'JsonStub-Project-Key': '226d6d25-f070-4b3b-8b81-ae52834528a4'
-            }
-        }).success(function(data, status, headers, config) {
-            console.log('Success!');
-            $scope.entries = data.entries; 
-        });
+    $scope.getItems = function(id) {
+        console.log('Getting items of site ' + id + '...');
+        $http.get('/channels/' + id + '/items')
+            .success(function(data, status, headers, config) {
+                console.log('Successs!');
+                console.log(data);
+                $scope.entries = data;
+            });
     }
 
-    $scope.slideContent = function(id) {
+
+    $scope.slideContent = function(id, read) {
         console.log('id: e_' + id);
 
         $('#e_' + id).slideToggle();
+        $http.post('/channels/1/items/'+id+'?read='+read)
+            .success(function(data){
+                console.log("success");
+                console.log(data);
+            });
     }
 
     $scope.loadHtml = function(html) {
@@ -77,29 +56,22 @@ angular.module('myApp.view_main', ['ngRoute'])
     }
 
 
-
-    // Custom DOM JS 
+    function actualiseChannels(scope){
+        $http.get('/channels')
+            .success(function(data, status, headers, config) {
+                console.log("success : ");
+                // console.log(data);
+                $scope.channels = data;
+            })
+            .error(function(data, error) {
+                console.log('Error get channels');
+                console.log(data);
+             });
+    }
 
     $("#actualise-channels").click(function(){
-        $http({
-            url: '/channels',
-            method: 'GET',
-            dataType: 'json',
-            data: '',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        }).success(function(data, status, headers, config) {
-            console.log('Success');
-            console.log(data);
-            console.log(status);
-            $scope.sites = data.sites;
-            console.log($scope.sites);
-        }).error(function(data, error) {
-            console.log('Error get channels');
-            console.log(data);
-        //alert('[' + data + ']');
-    });
+        actualiseChannels($scope);
+        console.log($scope.channels);
     });
 
 
@@ -116,32 +88,6 @@ angular.module('myApp.view_main', ['ngRoute'])
                 console.log('error:', data);
             });
     };
-
-//    $("#add-new-channel-button").click(function(){
-//        console.log('Validation');
-//        $scope.createChannel = function(channel) {
-//            $http({
-//                url: '/channels/new',
-//                method: 'POST',
-//                dataType: 'json',
-//                data: {
-//                    'link': 'http://www.lemonde.fr/rss/une.xml',
-//                    'title': 'Le Monde'
-//                },
-//                withCredentials: true,
-//                headers: {
-//                }
-//            }).success(function(data, status, headers, config) {
-//                $scope.entries = data.entries;
-//                console.log(data);
-//                console.log('NOUVEAU CHANNEL SUCCESS');
-//            }).error(function(e){
-//                console.log("error !");
-//            });
-//
-//        };
-//    });
-
 }]);
 
 

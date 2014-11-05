@@ -102,27 +102,45 @@ angular.module('myApp.view_main', ['ngRoute'])
     });
     });
 
-    $("#add-new-channel-button").click(function(){
-        console.log('Validation');
-        $scope.createChannel = function(channel) {
-            $http({
-                url: '/channels/new',
-                method: 'POST',
-                dataType: 'json',
-                data: {
-                    'link': 'http://www.lemonde.fr/afrique/rss_full.xml',
-                    'title': 'Le Monde - Afrique'
-                },
-            }).success(function(data, status, headers, config) {
-                $scope.entries = data.entries;
-                console.log(data);
-                console.log('NOUVEAU CHANNEL SUCCESS');
-            }).error(function(e){
-                console.log("error !");
-            });
 
-        };
-    });
+    // C'est comme ça qu'on fait un appel ajax avec Angular.
+    // Et si possible faudrait faire comme dans leur tuto afficiel niveau hierarchisation
+    // Et faire gaffe que t'inclue une  vue avec un tag html body etc...
+    $scope.createChannel = function (channel) {
+        console.log(channel);
+        $http.post('/channels/new', channel)
+            .success(function(data, status, headers, config) {
+                console.log('success', data);
+            })
+            .error(function(data, status, headers, config) {
+                console.log('error:', data);
+            });
+    };
+
+//    $("#add-new-channel-button").click(function(){
+//        console.log('Validation');
+//        $scope.createChannel = function(channel) {
+//            $http({
+//                url: '/channels/new',
+//                method: 'POST',
+//                dataType: 'json',
+//                data: {
+//                    'link': 'http://www.lemonde.fr/rss/une.xml',
+//                    'title': 'Le Monde'
+//                },
+//                withCredentials: true,
+//                headers: {
+//                }
+//            }).success(function(data, status, headers, config) {
+//                $scope.entries = data.entries;
+//                console.log(data);
+//                console.log('NOUVEAU CHANNEL SUCCESS');
+//            }).error(function(e){
+//                console.log("error !");
+//            });
+//
+//        };
+//    });
 
 }]);
 

@@ -45,6 +45,10 @@ public class RssParser {
         return (channel.getChild("link").getText());
     }
 
+    public String getImageUrl() {
+        return (channel.getChild("image").getChild("url").getText());
+    }
+
     public List<Item> getItems() {
         Item item;
         Element itemElement;
@@ -58,7 +62,6 @@ public class RssParser {
             item.title = itemElement.getChild("title").getText();
             item.link = itemElement.getChild("link").getText();
             item.description = itemElement.getChild("description").getText();
-
             items.add(item);
         }
         return (items);

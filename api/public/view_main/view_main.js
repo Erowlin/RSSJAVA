@@ -9,86 +9,115 @@ angular.module('myApp.view_main', ['ngRoute'])
             controller: 'View_mainCtrl'
         });
     }
-    ])
+])
 
-.controller('View_mainCtrl', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
+.controller('View_mainCtrl', ['$scope', '$http', '$sce',
+    function($scope, $http, $sce) {
 
-    console.log("Entering view main controller..");
-    actualiseChannels();
+        console.log("Entering view main controller..");
+        actualiseChannels();
 
-    $('.nav-menu-button').click(function(e) {
-        e.preventDefault();
-        if ($('#nav').hasClass('active')) {
-            $('.nav-inner').slideToggle(function() {
+        console.log($.fn.jquery);
+
+        $('.nav-menu-button').click(function(e) {
+            e.preventDefault();
+            if ($('#nav').hasClass('active')) {
+                $('.nav-inner').slideToggle(function() {
+                    $('#nav').toggleClass('active');
+                });
+            } else {
+                $('.nav-inner').slideToggle();
                 $('#nav').toggleClass('active');
-            });
-        } else {
-            $('.nav-inner').slideToggle();
-            $('#nav').toggleClass('active');
+            }
+
+        });
+
+
+
+        $scope.getItems = function(id) {
+            console.log('Getting items of site ' + id + '...');
+
+            $http.get('/channels/' + id + '/items')
+                .success(function(data, status, headers, config) {
+                    $('#list').find('.feed-item-selected').removeClass('feed-item-selected');
+                    $('#c_' + id).addClass('feed-item-selected');
+                    // console.log('Successs!');
+                    //console.log(data);
+                    $scope.entries = data;
+                    
+                });
         }
 
-    });
 
-    $scope.getItems = function(id) {
-        console.log('Getting items of site ' + id + '...');
-        $http.get('/channels/' + id + '/items')
-            .success(function(data, status, headers, config) {
-                console.log('Successs!');
-                console.log(data);
-                $scope.entries = data;
-            });
+        $scope.slideContent = function(id) {
+            console.log('id: e_' + id);
+
+            $('#e_' + id).slideToggle();
+
+            $scope.setReadContent(id, true);
+        }
+
+        $scope.setReadContent = function(id, read) {
+            console.log('set read content id: ' + id);
+
+            $http.post('/channels/1/items/' + id + '?read=' + read)
+                .success(function(data) {
+                    console.log("success");
+                    console.log(data);
+                    
+                    $.grep($scope.entries, function(e) {
+                        if (e.id == data.id) {
+                            e.read = read;
+                        }
+                    });
+
+                    var id_tmp = $('#list').find('.feed-item-selected').attr('id');
+                    console.log('id channel active: ' + id_tmp);
+                        $.grep($scope.channels, function(e) {
+
+                    });
+                });
+        }
+
+        $scope.loadHtml = function(html) {
+            return $sce.trustAsHtml(html);
+        }
+
+
+        function actualiseChannels(scope) {
+            $http.get('/channels')
+                .success(function(data, status, headers, config) {
+                    // console.log(data);
+                    $scope.channels = data;
+                })
+                .error(function(data, error) {
+                    console.log('Error get channels');
+                    console.log(data);
+                });
+        }
+
+        $("#actualise-channels").click(function() {
+            actualiseChannels($scope);
+            console.log($scope.channels);
+        });
+
+
+        // C'est comme ça qu'on fait un appel ajax avec Angular.
+        // Et si possible faudrait faire comme dans leur tuto afficiel niveau hierarchisation
+        // Et faire gaffe que t'inclue une  vue avec un tag html body etc...
+        $scope.createChannel = function(channel) {
+            console.log(channel);
+            $http.post('/channels/new', channel)
+                .success(function(data, status, headers, config) {
+                    console.log('[CREATE]: success ' + data);
+                    $('#myModal').modal('hide');
+                })
+                .error(function(data, status, headers, config) {
+                    $('#ErrorNew').html(data);
+                });
+        };
     }
-
-
-    $scope.slideContent = function(id, read) {
-        console.log('id: e_' + id);
-
-        $('#e_' + id).slideToggle();
-        $http.post('/channels/1/items/'+id+'?read='+read)
-            .success(function(data){
-                console.log("success");
-                console.log(data);
-            });
-    }
-
-    $scope.loadHtml = function(html) {
-        return $sce.trustAsHtml(html);
-    }
-
-
-    function actualiseChannels(scope){
-        $http.get('/channels')
-            .success(function(data, status, headers, config) {
-                console.log("success : ");
-                // console.log(data);
-                $scope.channels = data;
-            })
-            .error(function(data, error) {
-                console.log('Error get channels');
-                console.log(data);
-             });
-    }
-
-    $("#actualise-channels").click(function(){
-        actualiseChannels($scope);
-        console.log($scope.channels);
-    });
-
-
-    // C'est comme ça qu'on fait un appel ajax avec Angular.
-    // Et si possible faudrait faire comme dans leur tuto afficiel niveau hierarchisation
-    // Et faire gaffe que t'inclue une  vue avec un tag html body etc...
-    $scope.createChannel = function (channel) {
-        console.log(channel);
-        $http.post('/channels/new', channel)
-            .success(function(data, status, headers, config) {
-                console.log('success', data);
-            })
-            .error(function(data, status, headers, config) {
-                console.log('error:', data);
-            });
-    };
-}]);
+]);
 
 
 function feedController($scope, $http) {

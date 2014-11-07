@@ -4,6 +4,7 @@
  */
 body {
     color: #333;
+    font-family: Helvetica;
 }
 
 
@@ -17,6 +18,28 @@ a {
 .display-inline {
     display: inline;
 }
+
+.hidden {
+    display: none;
+}
+
+.small {
+    font-size: 0.6em;
+}
+
+.info-text {
+    color: #eee;
+}
+
+#info-text-unread {
+    display: none;
+}
+
+#ErrorNew {
+    color: red;
+    font-size: 11px;
+}
+
 
 /*
  * -- HELPER STYLES --
@@ -134,6 +157,13 @@ a {
 }
 
 
+/* Custom feed Item Styles */
+.feed-item:hover,
+H3.feed-content-title:hover {
+    cursor: pointer;
+}
+
+
 /* feed Item Styles */
 .feed-item {
     padding: 0.9em 1em;
@@ -170,6 +200,24 @@ a {
     margin-top: 3px;
     border-bottom: 1px solid #bbb;
 
+}
+
+/* Custom feed Content Styles */
+
+.feed-content-subtitle i {
+        margin-left: 5px;
+}
+
+.feed-content-subtitle a:hover {
+        text-decoration: none;
+}
+
+.feed-content-subtitle i:hover {
+        cursor: pointer;
+}
+
+.feed-content-subtitle #icon-unread:hover + #info-text-unread {
+    display: inline;
 }
 
 /* feed Content Styles */

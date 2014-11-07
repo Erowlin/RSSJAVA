@@ -39,34 +39,38 @@
             </div>
 
             <div id="list" class="pure-u-1">
-                <div class="feed-item pure-g" ng-repeat="channel in channels" id="{{ 's_' + site.id }}" ng-class="{'feed-item-unread': site.unread > 0}" ng-click="getItems(channel.id)">
+                <div class="feed-item pure-g" ng-repeat="channel in channels" id="{{ 'c_' + channel.id }}" ng-class="{'feed-item-unread': channel.unread > 0}" ng-click="getItems(channel.id)">
                     <div class="pure-u">
-                        <img class="feed-avatar" alt="{{ channel.title }}" height="64" width="64" src="">
+                        <img class="feed-avatar" src="{{ channel.imageUrl }}" alt="{{ channel.title }}">
                     </div>
 
                     <div class="pure-u-3-4">
-                        <span class="feed-item-unread-count pure-badge-info">{{ site.unread }}</span>
+                        <span class="feed-item-unread-count pure-badge-info">{{ channel.unread }}</span>
                         <h5 class="feed-name">{{ channel.title }}</h5> 
                     </div>
 
                 </div>
+                 
             </div>
 
             <div id="main" class="pure-u-1">
-                <div class="feed-content" ng-repeat="entry in entries" ng:class="{false:'feed-item-unread', true:''}[entry.read]">
+                <div class="feed-content" ng-repeat="entry in entries" id="{{ 'cc_' + entry.id }}" ng:class="{false:'feed-item-unread', true:''}[entry.read]">
                     <div class="feed-content-header pure-g">
-                        <div class="pure-u-1-2">
-                            <h2 class="feed-content-title" ng-click="slideContent(entry.id, 'true')"> {{ entry.title }} </h2>
+                        <div class="pure-u-1">
+                            <h3 class="feed-content-title" ng-click="slideContent(entry.id)"> {{ entry.title }} </h3>
                             <p class="feed-content-subtitle">
-                                <a href="{{entry.link}}">Go to the website</a>
+                                <a href="{{entry.link}}" alt="follow">
+                                    <i class="fa fa-link"></i>
+                                </a>
+                                <i class="fa fa-share-alt"></i>
+                                <i id="icon-unread" ng-click="setReadContent(entry.id, 'false')" ng:class="{false:'hidden', true:''}[entry.read]" class="fa fa-eye-slash"></i>
+                                <span class="small info-text" id="info-text-unread">set as unread</span>
                             </p>
                         </div>
                     </div>
 
                     <div id="{{ 'e_' + entry.id }}" class="feed-content-body" style="display: none;">
                         <button class="secondary-button pure-button">Star</button>
-                        <button class="secondary-button pure-button" ng-click="slideContent(entry.id, 'false')">Mark as unread</button>
-                        <button class="secondary-button pure-button">Share</button>
                         <p ng-bind-html="loadHtml(entry.description)"></p> 
 
                     </div>
@@ -88,12 +92,17 @@
             <form novalidate class="pure-form new-channel">
                 <div class="modal-body">
                     <div class="pure-g">
-                        <div class="pure-u-1-3"></div>
-                        <div class="pure-u-1-3">
-                            <input type="text" placeholder="Channel Address" ng-model="channel.link">
+                        <div class="pure-u">
+                            <div class="pure-u-1-3"></div>
+                            <div class="pure-u-1-3">
+                                <input type="text" placeholder="Channel Address" ng-model="channel.link">
+                            </div>
+                            <div class="pure-u-1-3"></div>
+                            </div>
                         </div>
-                        <div class="pure-u-1-3"></div>
-                    </div>
+                        <div class="pure-u">
+                            <div id="ErrorNew" class="pure-u-1"></div>
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="pure-button pure-button-warning" data-dismiss="modal">Cancel</button>

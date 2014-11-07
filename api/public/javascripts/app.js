@@ -13,7 +13,7 @@ angular.module('rssjava', []).factory('Channels', ['$http', function($http) {
 			return ($http.get('/channels/' + channel_id + '/items'));
 		},
 		delete: function (channel_id) {
-			// return ($http.get('/channels/' + channel_id + '/items'));
+			return ($http.get('/channels/' + channel_id + '/delete'));
 		}
 		//...
 	});
@@ -37,7 +37,6 @@ angular.module('rssjava', []).factory('Channels', ['$http', function($http) {
 	};
 	$scope.getItems = function (channel_id) {
 		var channel = _.find($scope.channels, {id: channel_id});
-		console.log('found channel', channel);
 		if (channel.items !== undefined) {
 			$scope.items = channel.items;
 		} else {
@@ -63,7 +62,8 @@ angular.module('rssjava', []).factory('Channels', ['$http', function($http) {
 	$scope.deleteChannel = function (channel) {
 		Channels.delete(channel.id)
 			.success(function (res) {
-				console.log(res);
+				$scope.items = [];
+				$scope.channels = _.reject($scope.channels, {id: channel.id});
 			})
 			.error(function (error) {
 				console.log(error);
@@ -72,8 +72,4 @@ angular.module('rssjava', []).factory('Channels', ['$http', function($http) {
 	$scope.loadHtml = function(html) {
 		return $sce.trustAsHtml(html);
 	}
-}]).filter('trust', ['$sce', function($sce) {
-	return (function(input) {
-		return ($sce.trustAsHtml(input));
-	});
 }]);

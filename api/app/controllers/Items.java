@@ -1,4 +1,5 @@
 package controllers;
+import java.util.*;
 
 import models.Channel;
 import models.Item;
@@ -6,6 +7,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import play.Logger;
 import java.util.List;
 import play.data.Form;
 import play.api.data.*;
@@ -15,7 +17,8 @@ import play.api.data.*;
  */
 public class Items extends Controller {
     public static Result all(Long channel_id) {
-        List<Item> items = Channel.find.byId(channel_id).items;
+        Channel channel = Channel.find.byId(channel_id);
+        List<Item> items = channel.items;
         return ok(Json.toJson(items));
     }
 
@@ -26,8 +29,14 @@ public class Items extends Controller {
 
     public static Result setRead(Long channel_id, Long item_id, Boolean read) {
     	Item item = Item.find.byId(item_id);
-    	item.read = read;
+    	Channel channel = Channel.find.byId(channel_id);
+        item.read = read;
     	item.save();
+        if (read == false)
+            Logger.debug("false");
+        else
+            Logger.debug("true");
+        Logger.debug("UNREAD");
     	return ok(Json.toJson(item));
     }
 }

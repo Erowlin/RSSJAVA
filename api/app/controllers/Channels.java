@@ -1,5 +1,6 @@
 package controllers;
 
+
 import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.user.AuthUser;
 import jobs.Fetch;
@@ -10,6 +11,8 @@ import play.data.Form;
 import play.mvc.*;
 
 import models.Channel;
+import models.Item;
+
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -20,6 +23,11 @@ public class Channels extends Controller {
 
     public static Result all() {
         List<Channel> channels = Channel.find.all();
+        int channels_count = channels.size();
+        Logger.debug("Tamere");
+        for(int i = 0; i < channels_count; i++) {
+            channels.get(i).updateUnread();
+        }
         return ok(Json.toJson(channels));
     }
 
@@ -37,10 +45,14 @@ public class Channels extends Controller {
 
     public static Result get(Long id) {
         Channel channel = Channel.find.byId(id);
+        Logger.debug("A log messagess");
+        // Logger.info(channel.items);
+
         return ok(Json.toJson(channel));
     }
 
     public static Result mainView() {
+        Logger.debug("a log messagedsadas");
 
 
 //        final AuthUser currentAuthUser = PlayAuthenticate.getUser(session());

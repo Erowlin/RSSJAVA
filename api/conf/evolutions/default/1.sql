@@ -7,7 +7,7 @@ create table channel (
   id                        bigint not null,
   title                     varchar(255),
   link                      varchar(255),
-  description               varchar(255),
+  description               TEXT,
   user_id                   varchar(255),
   constraint pk_channel primary key (id))
 ;
@@ -18,10 +18,11 @@ create table channel_category (
 
 create table item (
   id                        bigint not null,
+  channel_id                bigint not null,
   title                     varchar(255),
   link                      varchar(255),
-  description               varchar(255),
-  channel_id                bigint,
+  description               TEXT,
+  read                      boolean default false,
   constraint pk_item primary key (id))
 ;
 

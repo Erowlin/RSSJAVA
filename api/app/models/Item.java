@@ -23,10 +23,14 @@ public class Item extends Model {
     public String link;
 
     @Constraints.Required
+    @Column(columnDefinition = "TEXT")
     public String description;
 
-    @ManyToOne(cascade=CascadeType.ALL)
-    public Channel channel;
+    @Column(columnDefinition = "boolean default false")
+    public Boolean read = false;
+
+//    @ManyToOne(cascade=CascadeType.ALL)
+//    public Channel channel;
 
 //    public String author;
 //    public String category;

@@ -2,12 +2,21 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+
+GET        /                                 controllers.Application.index()
 # Home page
-GET     /                           controllers.Application.index()
+#GET     /                           controllers.Channels.mainView()
+#GET     /                           controllers.Application.index()
 
 GET     /channels                   controllers.Channels.all()
 POST    /channels/new               controllers.Channels.create()
-DELETE  /channels/:id/delete        controllers.Channels.delete(id: Long)
+GET     /channels/:id               controllers.Channels.get(id: Long)
+GET     /channels/:id/delete        controllers.Channels.delete(id: Long)
+
+GET     /channels/:channel_id/items                 controllers.Items.all(channel_id: Long)
+GET     /channels/:channel_id/items/:item_id        controllers.Items.get(channel_id: Long, item_id: Long)
+
+POST	/channels/:channel_id/items/:item_id		controllers.Items.setRead(channel_id: Long, item_id: Long, read: Boolean?=false)
 
 #GET     /users                      controllers.Users.all()
 #POST    /users/new                  controllers.Users.create()
@@ -18,4 +27,4 @@ GET     /authenticate/:provider     com.feth.play.module.pa.controllers.Authenti
 GET     /authenticate/:provider/denied     controllers.Application.oAuthDenied(provider: String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET        /*file                            controllers.Assets.versioned(path="/public", file: Asset)

@@ -64,11 +64,22 @@ public class ChannelTest {
         models.Channel channel = Channel.find.all().get(0);
         Result result = callAction(
                 controllers.routes.ref.Channels.delete(channel.id),
-                new FakeRequest(GET, "/channels")
+                new FakeRequest(GET, "/channels/1/delete")
         );
         models.Channel channel2 = Channel.find.byId(channel.id);
         assertThat(channel2).isNull();
         assertThat(status(result)).isEqualTo(OK);
         assertThat(contentAsString(result)).isEmpty();
+    }
+
+    @Test
+    public void testGet() {
+        models.Channel channel = Channel.find.all().get(0);
+        Result result = callAction(
+                controllers.routes.ref.Channels.get(channel.id),
+                new FakeRequest(GET, "/channels/1")
+        );
+        assertThat(status(result)).isEqualTo(OK);
+        assertThat(contentAsString(result)).contains(channel.id.toString());
     }
 }

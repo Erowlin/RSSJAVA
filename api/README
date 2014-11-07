@@ -2,3 +2,9 @@ This is your new Play application
 =================================
 
 This file will be packaged with your application, when using `activator dist`.
+
+#Launching
+
+You basically have to have the `sbt` package and scala installed and then run the activator executable present on the repo to launch the prompt.
+(The authentification is OFF because they ask for a special domain name.)
+So you just have to type `run` on the activator prompt and access to localhost with the given port.

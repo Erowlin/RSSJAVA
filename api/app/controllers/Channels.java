@@ -45,6 +45,7 @@ public class Channels extends Controller {
 
     public static Result get(Long id) {
         Channel channel = Channel.find.byId(id);
+        channel.updateUnread();
         Logger.debug("A log messagess");
         // Logger.info(channel.items);
 

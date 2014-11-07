@@ -29,6 +29,7 @@ public class Item extends Model {
     @Column(columnDefinition = "boolean default false")
     public Boolean read = false;
 
+
 //    @ManyToOne(cascade=CascadeType.ALL)
 //    public Channel channel;
 

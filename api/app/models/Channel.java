@@ -31,7 +31,10 @@ public class Channel extends Model {
     @ManyToOne(cascade=CascadeType.ALL)
     public User user;
 
-    public Channel(String title, String link, String description, User user) {
+    public String imageUrl;
+
+
+    public Channel(String title, String link, String description, User user, String imageUrl) {
         this.user = user;
     }
 
@@ -39,7 +42,7 @@ public class Channel extends Model {
         this.title = rss.getTitle();
         this.description = rss.getDescription();
         this.link = rss.getLink();
-
+        this.imageUrl = rss.getImageUrl();
         this.items = rss.getItems();
         Logger.debug("Number of items saved: " + items.size());
 

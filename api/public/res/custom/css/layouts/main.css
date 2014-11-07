@@ -163,6 +163,10 @@ H3.feed-content-title:hover {
     cursor: pointer;
 }
 
+H3.feed-content-title {
+    color: #0b6f93;
+}
+
 
 /* feed Item Styles */
 .feed-item {

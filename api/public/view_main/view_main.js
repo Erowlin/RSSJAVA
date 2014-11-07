@@ -44,7 +44,7 @@ angular.module('myApp.view_main', ['ngRoute'])
                     // console.log('Successs!');
                     //console.log(data);
                     $scope.entries = data;
-                    
+
                 });
         }
 
@@ -64,18 +64,26 @@ angular.module('myApp.view_main', ['ngRoute'])
                 .success(function(data) {
                     console.log("success");
                     console.log(data);
-                    
+
                     $.grep($scope.entries, function(e) {
                         if (e.id == data.id) {
-                            e.read = read;
+                            if (e.read != read) {
+                                e.read = read;
+
+                                var id_tmp = $('#list').find('.feed-item-selected').attr('id').substring(2);
+                                $.grep($scope.channels, function(c) {
+                                    if (c.id == id_tmp) {
+                                        if (read == true)
+                                            c.unread -= 1;
+                                        else
+                                            c.unread += 1;
+                                    }
+                                });
+                            }
                         }
                     });
 
-                    var id_tmp = $('#list').find('.feed-item-selected').attr('id');
-                    console.log('id channel active: ' + id_tmp);
-                        $.grep($scope.channels, function(e) {
 
-                    });
                 });
         }
 

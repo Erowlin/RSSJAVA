@@ -46,7 +46,10 @@ public class RssParser {
     }
 
     public String getImageUrl() {
-        return (channel.getChild("image").getChild("url").getText());
+        if (channel.getChild("image") != null && channel.getChild("image").getChild("url") != null )
+            return (channel.getChild("image").getChild("url").getText());
+        else
+            return "";
     }
 
     public List<Item> getItems() {

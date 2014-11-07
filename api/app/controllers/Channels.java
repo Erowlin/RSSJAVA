@@ -24,7 +24,6 @@ public class Channels extends Controller {
     public static Result all() {
         List<Channel> channels = Channel.find.all();
         int channels_count = channels.size();
-        Logger.debug("Tamere");
         for(int i = 0; i < channels_count; i++) {
             channels.get(i).updateUnread();
         }
@@ -46,14 +45,12 @@ public class Channels extends Controller {
     public static Result get(Long id) {
         Channel channel = Channel.find.byId(id);
         channel.updateUnread();
-        Logger.debug("A log messagess");
         // Logger.info(channel.items);
 
         return ok(Json.toJson(channel));
     }
 
     public static Result mainView() {
-        Logger.debug("a log messagedsadas");
 
 
 //        final AuthUser currentAuthUser = PlayAuthenticate.getUser(session());

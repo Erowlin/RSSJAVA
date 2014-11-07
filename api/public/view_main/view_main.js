@@ -111,6 +111,7 @@ angular.module('myApp.view_main', ['ngRoute'])
                 .success(function(data, status, headers, config) {
                     console.log('[CREATE]: success ' + data);
                     $('#myModal').modal('hide');
+                    actualiseChannels();
                 })
                 .error(function(data, status, headers, config) {
                     $('#ErrorNew').html(data);

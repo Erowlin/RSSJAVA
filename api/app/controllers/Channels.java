@@ -1,8 +1,5 @@
 package controllers;
 
-
-import com.feth.play.module.pa.PlayAuthenticate;
-import com.feth.play.module.pa.user.AuthUser;
 import jobs.Fetch;
 import models.User;
 import play.Logger;

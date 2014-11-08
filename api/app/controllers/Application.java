@@ -1,23 +1,28 @@
 package controllers;
 
-import com.feth.play.module.pa.PlayAuthenticate;
-import com.feth.play.module.pa.user.AuthUser;
 import play.*;
 import play.mvc.*;
 import models.User;
 
 import views.html.*;
 
+// @CORS
 public class Application extends Controller {
-	public static Result index() {
-		final AuthUser currentAuthUser = PlayAuthenticate.getUser(session());
-		final User localUser = User.findByAuthUserIdentity(currentAuthUser);
-		if (localUser == null) {
-			return ok(login.render());
-		}
-		return ok(index.render());
+
+	public static Result index(String accessToken) {
+        if (accessToken != null) {
+            User user = User.find.where().eq("token", accessToken).findUnique();
+            if (user != null) {
+                return ok(index.render());
+            }
+        }
+        return ok(login.render());
 	}
-	public static Result oAuthDenied(final String providerKey) {
-		return ok("coucou");
-	}
+    // public static Result checkPreFlight(String opt) {
+    //     response().setHeader("Access-Control-Allow-Origin", "*");
+    //     response().setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
+    //     response().setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, X-Auth-Token");
+
+    //     return ok();
+    // }
 }

@@ -8,7 +8,7 @@ create table channel (
   title                     varchar(255),
   link                      varchar(255),
   description               TEXT,
-  user_id                   varchar(255),
+  user_id                   integer,
   image_url                 varchar(255),
   unread                    integer,
   constraint pk_channel primary key (id))
@@ -29,11 +29,16 @@ create table item (
 ;
 
 create table user (
-  id                        varchar(255) not null,
-  user_id                   varchar(255),
-  provider_id               varchar(255),
-  email                     varchar(255),
-  password                  varchar(255),
+  id                        integer not null,
+  email                     varchar(254),
+  password                  varchar(40),
+  first_name                varchar(35),
+  last_name                 varchar(35),
+  inscription_date          timestamp,
+  token                     varchar(40),
+  issued_token              timestamp,
+  max_token_validity        timestamp,
+  update_time               timestamp not null,
   constraint uq_user_email unique (email),
   constraint pk_user primary key (id))
 ;

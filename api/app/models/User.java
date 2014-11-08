@@ -1,102 +1,105 @@
 package models;
 
-import java.util.*;
-import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Date;
 
-import com.feth.play.module.pa.user.AuthUser;
-import com.feth.play.module.pa.user.AuthUserIdentity;
-import org.mindrot.jbcrypt.BCrypt;
-import play.Logger;
-import play.db.ebean.*;
-import play.data.format.*;
-import play.data.validation.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Version;
+
+import play.data.format.Formats;
+import play.data.validation.Constraints;
+import play.db.ebean.Model;
 
 @Entity
+@Table(name="user")
 public class User extends Model {
-    @Id
-    @Constraints.Min(10)
-    public String id;
+    
+    /**
+     * Unique version uid for serialization
+     */
+    private static final long serialVersionUID = -378338424543301076L;
 
-    public String user_id;
-    public String provider_id;
-
-    @Constraints.Required
+    @GeneratedValue
     @Column(unique=true)
-    public String email;
+    @Id
+    public Integer  id; 
+    
+    @Column(length=254, unique=true)
+    @Constraints.Email()
+    public String   email;
+    
+    @Column(length=40)
+    public String   password;
+    
+    @Column(length=35)
+    @Constraints.MinLength(2)
+    public String   firstName;
+    
+    @Column(length=35)
+    @Constraints.MinLength(2)
+    public String   lastName;
+    
+    @Formats.DateTime(pattern="dd/MM/yyyy")
+    public Date     inscriptionDate;
 
-    @Constraints.Required
-    public String password;
+    @Column(length=40)
+    public String   token;
 
-//    @OneToMany(cascade=CascadeType.ALL)
-//    public List<Channel> channels;
+    @Formats.DateTime(pattern="dd/MM/yyyy")
+    public Date     issued_token;
 
-//    public User() {
-//        channels = new ArrayList<Channel>();
-//    }
+    @Formats.DateTime(pattern="dd/MM/yyyy")
+    public Date     max_token_validity;
 
-//    public boolean done;
+    
+    // @OneToMany(mappedBy="creator", cascade=CascadeType.ALL)
+    // public List<Tag>   tags;
+    
+    // public Lang     lang;
+    
+    // @OneToOne(cascade=CascadeType.ALL)
+    // @JoinColumn(name="profile_picture_id")
+    // public Image       profilePicture;
 
-//    @Formats.DateTime(pattern="dd/MM/YY")
-//    public Date dueDate;
-
-    public static User create(AuthUser authUser) {
-        User u = new User();
-        u.id = authUser.getId();
-        u.provider_id = authUser.getProvider();
-        u.save();
-        return u;
+    // @OneToOne(cascade=CascadeType.ALL)
+    // @JoinColumn(name="cover_picture_id")
+    // public Image       coverPicture;
+    
+    @Version
+    Timestamp updateTime;
+    
+    public User(String email, String password) {
+        this.email = email;
+        this.password = utils.Hasher.hash(password);
+        this.firstName = null;
+        this.lastName = null;
+    }
+    
+    public static Finder<Long, User> find = new Finder<Long, User>(Long.class, User.class);
+    
+    public static User create(String email, String password) {
+        User newUser = new User(email, password);
+        newUser.save();
+        
+        return newUser;
+    }
+    
+    public String getToken() {
+        this.issued_token = new Date();
+        this.max_token_validity = new Date();
+        this.max_token_validity.setTime(this.issued_token.getTime() + 25600);
+        this.token = utils.Hasher.hash(this.issued_token.toString().concat(this.id.toString()).concat(this.email));
+        this.save();
+        return (this.token);
     }
 
-    public static boolean existsByAuthUserIdentity(AuthUser authUser) {
-        List<User> lu = find.where()
-                .eq("id", authUser.getId())
-                .findPagingList(25)
-                .setFetchAhead(false)
-                .getAsList();
-        if (lu.size() > 0) {
-            Logger.debug(lu.get(0).toString());
-            return true;
-        } else {
-            return false;
-        }
+    public void deleteToken() {
+        this.token = "";
+        this.issued_token = null;
+        this.save();
     }
-
-    public static User findByAuthUserIdentity(AuthUserIdentity identity) {
-        if (identity == null) {
-            return (null);
-        }
-        List<User> lu = find.where()
-                .eq("id", identity.getId())
-                .findPagingList(25)
-                .setFetchAhead(false)
-                .getAsList();
-        if (lu.size() == 0) {
-            return (null);
-        }
-        return lu.get(0);
-    }
-
-    public static void merge(AuthUser newUser, AuthUser oldUser) {
-    }
-
-    public static void addLinkedAccount(final AuthUser oldUser, final AuthUser newUser) {
-    }
-
-    public static Finder<Long,User> find = new Finder<Long,User>(
-            Long.class, User.class
-    );
-
-//    public void hashPassword() {
-//        this.password = BCrypt.hashpw(this.password, BCrypt.gensalt());
-//        this.save();
-//    }
-//
-//    public static User authenticate(String userName, String password) {
-//        User user = User.find.where().eq("email", userName).findUnique();
-//        if (user != null && BCrypt.checkpw(password, user.password)) {
-//            return user;
-//        } else {
-//            return null;
-//        }
-//    }
 }

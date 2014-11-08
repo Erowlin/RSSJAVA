@@ -1,3 +1,0 @@
-10005:service.MyUserServicePlugin
-10060:com.feth.play.module.pa.providers.oauth1.twitter.TwitterAuthProvider
-10020:com.feth.play.module.pa.providers.oauth2.facebook.FacebookAuthProvider

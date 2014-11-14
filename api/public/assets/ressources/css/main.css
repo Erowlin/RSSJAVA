@@ -46,6 +46,32 @@ a {
 }
 
 /*
+*  MODAL
+*/
+
+#myModal .pure-button {
+
+    border-radius: 4px;
+}
+
+#myModal .pure-button.button-no-div {
+    background: transparent;
+    height: 25px;
+    width: 25px;
+    padding: 0;
+    margin: 0;
+}
+
+#myModal .pure-button#button-create {
+    background-color: rgb(75, 113, 151);
+}
+
+#myModal .pure-button.pure-button-alert {
+    color: white;
+    background-color: #8C0C00;
+}
+
+/*
  * -- HELPER STYLES --
  * Over-riding some of the .pure-button styles to make my buttons look unique
  */

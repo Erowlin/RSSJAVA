@@ -1,0 +1,356 @@
+/*
+ * -- BASE STYLES --
+ * Most of these are inherited from Base, but I want to change a few.
+ */
+body {
+    color: #333;
+    font-family: Helvetica;
+}
+
+
+
+a {
+    text-decoration: none;
+    color: #1b98f8;
+}
+
+
+.display-inline {
+    display: inline;
+}
+
+.hidden {
+    display: none;
+}
+
+.small {
+    font-size: 0.6em;
+}
+
+.info-text {
+    color: #eee;
+}
+
+#info-text-unread {
+    display: none;
+}
+
+#ErrorNew {
+    color: red;
+    font-size: 11px;
+}
+
+
+#menu-buttons button {
+    border-radius: 30px;
+}
+
+/*
+ * -- HELPER STYLES --
+ * Over-riding some of the .pure-button styles to make my buttons look unique
+ */
+.primary-button,
+.secondary-button {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border-radius: 20px;
+}
+.primary-button {
+    color: #fff;
+    background: #1b98f8;
+    margin: 1em 0;
+}
+.secondary-button {
+    background: #fff;
+    border: 1px solid #ddd;
+    color: #666;
+    padding: 0.5em 1em;
+    font-size: 80%;
+}
+
+/*
+ * -- LAYOUT STYLES --
+ * This layout consists of three main elements, `#nav` (navigation bar), `#list` (feed list), and `#main` (feed content). All 3 elements are within `#layout`
+ */
+#layout, #nav, #list, #main {
+    margin: 0;
+    padding: 0;
+}
+
+/* Make the navigation 100% width on phones */
+#nav {
+    width: 100%;
+    height: 40px;
+    position: relative;
+    background: rgb(37, 42, 58);
+    text-align: center;
+}
+/* Show the "Menu" button on phones */
+#nav .nav-menu-button {
+    display: block;
+    top: 0.5em;
+    right: 0.5em;
+    position: absolute;
+}
+
+/* When "Menu" is clicked, the navbar should be 80% height */
+#nav.active {
+    height: 80%;
+}
+/* Don't show the navigation items... */
+.nav-inner {
+    display: none;
+}
+
+/* ...until the "Menu" button is clicked */
+#nav.active .nav-inner {
+    display: block;
+    padding: 2em 0;
+}
+
+
+/*
+ * -- NAV BAR STYLES --
+ * Styling the default .pure-menu to look a little more unique.
+ */
+#nav .pure-menu.pure-menu-open {
+    background: transparent;
+    border: none;
+    text-align: left;
+}
+    #nav .pure-menu a:hover,
+    #nav .pure-menu a:focus {
+        background: rgb(55, 60, 90);
+    }
+    #nav .pure-menu a {
+        color: #fff;
+        margin-left: 0.5em;
+    }
+    #nav .pure-menu-heading {
+        border-bottom: none;
+        font-size:110%;
+        color: rgb(75, 113, 151);
+    }
+
+/*
+ * -- feed STYLES --
+ * Styles relevant to the feed messages, labels, counts, and more.
+ */
+.feed-count {
+    color: rgb(75, 113, 151);
+}
+
+.feed-label-personal,
+.feed-label-work,
+.feed-label-travel {
+    width: 3px;
+    height: 15px;
+    display: inline-block;
+    margin-right: 0.5em;
+    border-radius: 3px;
+}
+.feed-label-personal {
+    background: #ffc94c;
+}
+.feed-label-work {
+    background: #41ccb4;
+}
+.feed-label-travel {
+    background: #40c365;
+}
+
+
+/* Custom feed Item Styles */
+.feed-item:hover,
+H3.feed-content-title:hover {
+    cursor: pointer;
+}
+
+H3.feed-content-title {
+    color: rgb(75, 113, 151);
+}
+
+
+/* feed Item Styles */
+.feed-item {
+    padding: 0.9em 1em;
+    border-bottom: 1px solid #ddd;
+    border-left: 6px solid transparent;
+}
+    .feed-avatar {
+        border-radius: 3px;
+        margin-right: 0.5em;
+    }
+    .feed-name {
+        margin: 0;
+        display: inline;
+    }
+
+.feed-item-unread-count {
+    display: inline;
+    float: right !important;
+}
+    
+
+.feed-item-selected {
+    background: #eee;
+}
+.feed-item-unread {
+    border-left: 6px solid #1b98f8;
+}
+
+.channel-title {
+    padding-left: 32px;
+}
+
+
+.feed-content{
+}
+
+.item-content-body {
+    border-bottom: 1px solid #bbb;
+    padding: 0 14px;
+}
+
+.feed-content-body {
+    margin-top: 3px;
+    border-bottom: 1px solid #bbb;
+
+}
+
+/* Custom feed Content Styles */
+
+.feed-content-subtitle i {
+        margin-left: 5px;
+}
+
+.feed-content-subtitle a:hover {
+        text-decoration: none;
+}
+
+.feed-content-subtitle i:hover {
+        cursor: pointer;
+}
+
+.feed-content-subtitle #icon-unread:hover + #info-text-unread {
+    display: inline;
+}
+
+/* feed Content Styles */
+.feed-content-header, .feed-content-body, .feed-content-footer {
+    padding: 0.3em 1em;
+}
+    .feed-content-header {
+        border-bottom: 1px solid #ddd;
+
+    }
+
+        .feed-content-title {
+            margin: 0.5em 0 0;
+            color: black;
+        }
+        .feed-content-subtitle {
+            font-size: 1em;
+            margin: 0;
+            font-weight: normal;
+        }
+            .feed-content-subtitle span {
+                color: #999;
+            }
+    .feed-content-controls {
+        margin-top: 2em;
+        text-align: right;
+    }
+
+    .feed-avatar {
+        width: 90px;
+        height: 20px;
+    }
+
+.feed-content-title>a {
+            margin: 0.5em 0 0;
+            color: black;
+        }
+
+
+/*
+ * -- TABLET (AND UP) MEDIA QUERIES --
+ * On tablets and other medium-sized devices, we want to customize some
+ * of the mobile styles.
+ */
+@media (min-width: 40em) {
+
+    /* Move the layout over so we can fit the nav + list in on the left */
+    #layout {
+        padding-left:500px; /* "left col (nav + list)" width */
+        position: relative;
+    }
+
+    /* These are position:fixed; elements that will be in the left 500px of the screen */
+    #nav, #list {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        overflow: auto;
+    }
+    #nav {
+        margin-left:-500px; /* "left col (nav + list)" width */
+        width:150px;
+        height: 100%;
+    }
+
+    /* Show the menu items on the larger screen */
+    .nav-inner {
+        display: block;
+        padding: 2em 0;
+    }
+
+    /* Hide the "Menu" button on larger screens */
+    #nav .nav-menu-button {
+        display: none;
+    }
+
+    #list {
+        margin-left: -350px;
+        width: 100%;
+        height: 33%;
+        border-bottom: 1px solid #ddd;
+    }
+
+    #main {
+        position: fixed;
+        top: 33%;
+        right: 0;
+        bottom: 0;
+        left: 150px;
+        overflow: auto;
+        width: auto; /* so that it's not 100% */
+    }
+
+}
+
+/*
+ * -- DESKTOP (AND UP) MEDIA QUERIES --
+ * On desktops and other large-sized devices, we want to customize some
+ * of the mobile styles.
+ */
+@media (min-width: 60em) {
+
+    /* This will take up the entire height, and be a little thinner */
+    #list {
+        margin-left: -350px;
+        width:400px;
+        height: 100%;
+        border-right: 1px solid #ddd;
+    }
+
+    /* This will now take up it's own column, so don't need position: fixed; */
+    #main {
+        position: static;
+        margin: 4px 0 0 50px;
+        padding: 0;
+        width: 100%;
+    }
+}
+

@@ -46,7 +46,7 @@ public class Users extends Controller {
             if (user.token != "" || user.max_token_validity.after(new Date())) {
                 user.getToken();
             }
-            return ok(user.token);
+            return ok(Json.toJson(user));
         } else {
             return(badRequest());
         }

@@ -1,4 +1,8 @@
-angular.module('rssjava', ['ngCookies'])
+angular.module('rssjava', ['ngCookies', 'angular-flash.service', 'angular-flash.flash-alert-directive'])
+	.config(function (flashProvider) {
+            flashProvider.errorClassnames.push('alert-danger');
+            flashProvider.warnClassnames.push('alert-warning');
+    })
 	.directive('slideable', function() {
 		return {
 			restrict: 'AC',
@@ -75,16 +79,18 @@ angular.module('rssjava', ['ngCookies'])
 				return ($http.post('/channels/' + channel_id + '/items/' + item_id + '?read=' + read));
 			}
 		});
-	}]).controller('MainController', ['$scope', '$sce', '$cookies', '$http', 'Channels', function($scope, $sce, $cookies, $http, Channels) {
+	}]).controller('MainController', ['$scope', '$sce', '$cookies', '$http', 'Channels', 'flash', function($scope, $sce, $cookies, $http, Channels, flash) {
 		$scope.channels = [];
 		$scope.items = [];
 
 		Channels.all()
 			.success(function(new_channels) {
+				console.log("rentre ici");
 				$scope.channels = new_channels;
 			})
 			.error(function(error) {
 				console.log(error);
+				flash.error = 'An error occured while refreshing the channels. Please try again later.';
 			})
 
 		$scope.getItems = function(channel_id) {
@@ -129,9 +135,11 @@ angular.module('rssjava', ['ngCookies'])
 			Channels.create($scope.channel)
 				.success(function(new_channel) {
 					$scope.channels.push(new_channel);
+					flash.success = 'Channel created !';
 				})
 				.error(function(error) {
 					console.log(error);
+					flash.error = 'Channel error. Please double-check the URL !';
 				});
 		};
 		$scope.deleteChannel = function(channel) {
@@ -144,6 +152,7 @@ angular.module('rssjava', ['ngCookies'])
 				})
 				.error(function(error) {
 					console.log(error);
+					flash.error = 'An error occured while deleting the channel. Please try again later.';
 				})
 		};
 		$scope.refresh = function() {
@@ -155,10 +164,10 @@ angular.module('rssjava', ['ngCookies'])
 		$scope.logout = function() {
 			$http.get("/users/" + $cookies.userId + "/access/delete")
 			.success(function(data){
-				console.log($cookies.userId);
 				$cookies.userId = '';
 				$cookies.token = '';
 				window.location = '/';
+				flash.success = "Successfully disconnected";
 			})
 			.error(function(data){
 				console.log("error : " + data);

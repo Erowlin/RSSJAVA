@@ -1,4 +1,4 @@
-angular.module('rssjava', [])
+angular.module('rssjava', ['ngCookies'])
 	.directive('slideable', function() {
 		return {
 			restrict: 'AC',
@@ -75,7 +75,7 @@ angular.module('rssjava', [])
 				return ($http.post('/channels/' + channel_id + '/items/' + item_id + '?read=' + read));
 			}
 		});
-	}]).controller('MainController', ['$scope', '$sce', 'Channels', function($scope, $sce, Channels) {
+	}]).controller('MainController', ['$scope', '$sce', '$cookies', '$http', 'Channels', function($scope, $sce, $cookies, $http, Channels) {
 		$scope.channels = [];
 		$scope.items = [];
 
@@ -151,5 +151,17 @@ angular.module('rssjava', [])
 		};
 		$scope.loadHtml = function(html) {
 			return $sce.trustAsHtml(html);
+		}
+		$scope.logout = function() {
+			$http.get("/users/" + $cookies.userId + "/access/delete")
+			.success(function(data){
+				console.log($cookies.userId);
+				$cookies.userId = '';
+				$cookies.token = '';
+				window.location = '/';
+			})
+			.error(function(data){
+				console.log("error : " + data);
+			});
 		}
 	}]);

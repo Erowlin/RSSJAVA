@@ -30,8 +30,11 @@ public class Channels extends Controller {
     public static Result create() {
         Form<Channel> channelForm = Form.form(Channel.class);
         Channel c = channelForm.bindFromRequest().get();
-        Fetch.runOne(c);
-        return ok(Json.toJson(c));
+        if (Fetch.runOne(c)) {
+            return ok(Json.toJson(c));
+        } else {
+            return badRequest();
+        }
     }
 
     public static Result delete(Long id) {

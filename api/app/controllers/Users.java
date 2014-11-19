@@ -16,11 +16,15 @@ import java.util.Map;
 public class Users extends Controller {
     public static Result create() {
         final JsonNode values = request().body().asJson();
-//        Form<User> userForm = Form.form(User.class);
-//        User user = userForm.bindFromRequest().get();
-        User user = User.create(values.get("email").asText(), values.get("password").asText());
-        return ok(Json.toJson(user));
-//        return (ok("Got json: " + request().body().asJson().get("email")));
+        final String email = values.get("email").asText();
+        final String passowrd = values.get("password").asText();
+        if (email.contains("@") && email.length() >= 6) {
+            if (passowrd.length() >= 6) {
+                User user = User.create(values.get("email").asText(), values.get("password").asText());
+                return ok(Json.toJson(user));
+            }
+        }
+        return badRequest(Json.toJson("Please enter a valid email and a password of at least 6characters"));
     }
 
     public static Result all() {

@@ -51,12 +51,15 @@ public class NetworkAPI {
         feeds.clear();
         JSONArray arr = null;
         try {
-            arr = new JSONArray(get("/channels"));
-            for (int i = 0; i < arr.length(); ++i) {
-                JSONObject obj = null;
-                obj = arr.getJSONObject(i);
-                Feed feed = new Feed(obj.getInt("id"), obj.getString("title"), obj.getString("link"));
-                feeds.add(feed);
+            String ret = get("/channels");
+            if (ret != null) {
+                arr                                = new JSONArray(ret);
+                for (int i = 0; i < arr.length(); ++i) {
+                    JSONObject obj = null;
+                    obj = arr.getJSONObject(i);
+                    Feed feed = new Feed(obj.getInt("id"), obj.getString("title"), obj.getString("link"));
+                    feeds.add(feed);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -68,13 +71,16 @@ public class NetworkAPI {
     {
         ArrayList<Item> items = new ArrayList<Item>();
         try {
-            JSONArray arr = new JSONArray(get("/channels/" + String.valueOf(id) + "/items"));
-            for (int i = 0; i < arr.length(); ++i) {
-                JSONObject obj = null;
-                obj = arr.getJSONObject(i);
-                Item item = new Item(obj.getString("title"), obj.getString("description"),
-                        obj.getString("link"), obj.getString("link"));
-                items.add(item);
+            String ret = get("/channels/" + String.valueOf(id) + "/items");
+            if (ret != null) {
+                JSONArray arr = new JSONArray(ret);
+                for (int i = 0; i < arr.length(); ++i) {
+                    JSONObject obj = null;
+                    obj = arr.getJSONObject(i);
+                    Item item = new Item(obj.getString("title"), obj.getString("description"),
+                            obj.getString("link"), obj.getString("link"));
+                    items.add(item);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -127,6 +133,19 @@ public class NetworkAPI {
         return true;
     }
 
+    public boolean isJSONValid(String test) {
+        try {
+            new JSONObject(test);
+        } catch (JSONException ex) {
+            try {
+                new JSONArray(test);
+            } catch (JSONException ex1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private String get(String url) {
         try {
             HttpGet httpgetreq = new HttpGet("http://" + address + url);
@@ -158,7 +177,15 @@ public class NetworkAPI {
             String resultstring = convertStreamToString(inputstream);
             inputstream.close();
             System.out.println(resultstring);
-            JSONObject recvdjson = new JSONObject(resultstring);
+            JSONObject recvdjson;
+            if (isJSONValid(resultstring)) {
+                recvdjson = new JSONObject(resultstring);
+            }
+            else {
+                recvdjson = new JSONObject();
+                recvdjson.put("token", resultstring);
+            }
+
             return recvdjson;
         } catch (ClientProtocolException e) {
             e.printStackTrace();
